@@ -1,0 +1,51 @@
+# Polymath Caliper
+
+A reusable, Planner-assisted planning and execution system for turning broad interests into focused, verifiable progress toward a defined Goal (target outcome, constraints, and deadline).
+
+## Background & Inspiration
+
+This repository implements the methodology described in the article:
+
+- [If You Have Too Many Interests, Build a System](https://multyhead.substack.com/p/if-you-have-too-many-interests-build)
+
+## How It Works
+
+The system coordinates five components with strict separation between the **reusable process** (the self-contained skill at [skills/polymath-caliper/](skills/polymath-caliper/)) and your **personal instance data** (gitignored `personal/`, created on `init`):
+
+1. **Resources (`personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`):** One **Goal** (spine), many **Focus Areas** that serve it, and a **Baseline** evaluation of how near or far you are from The Goal — used as the starting point for the next tasks.
+2. **Planner (`AGENTS.md`, `skills/polymath-caliper/`):** Evaluates The Goal and Focus Areas, writes and refreshes the Baseline, builds the roadmap, splits work into weekly milestones and daily tasks, and runs daily check-ins, weekly reviews, and interest evaluations — always requiring explicit approval before updating any external tool.
+3. **Roadmap & Memory / Notion (`skills/polymath-caliper/references/notion-workspace.md`):** Holds the live roadmap (`Build`, `Reading`, `Open`, and `Parking Lot` lanes), Baseline evaluation, weekly reviews, evidence portfolio, and decision log.
+4. **Knowledge Base / Obsidian (`skills/polymath-caliper/references/obsidian-workspace.md`):** Connects one or more independent domain/topic vaults as read-only inputs for study and project notes mapped to Focus Areas.
+5. **Task Tracker / Todoist (`skills/polymath-caliper/references/todoist-workspace.md`):** Manages daily and weekly execution tasks within a single isolated project (`tasks out` from the Planner, `progress back` via completions), protecting your unplanned reserve capacity.
+
+**Weekly loop:** tick off Task Tracker items → Planner reviews progress → updates the Baseline and Notion roadmap → plans next week.
+
+## Getting Started
+
+Invoke the `polymath-caliper` skill with an operation mode:
+
+| Mode | Purpose |
+|---|---|
+| `init` | Create `personal/goal.md`, `personal/focus-areas/*.md`, `personal/baseline.md`, and `personal/workspaces.md` from skill templates (guided interview, brain dump, existing workspace binding, or manual edit), then provision Notion/Todoist after approval |
+| `roadmap` | Multi-week roadmap and first/next week proposal from the Baseline |
+| `daily` | End-of-day check-in and tomorrow's adjustments |
+| `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline |
+| `evaluate` | Parking Lot trade-off for a new interest or course |
+
+Example:
+
+```text
+Use the polymath-caliper skill in init mode.
+Interview me (or accept a brain dump) to create personal/goal.md,
+personal/focus-areas/*.md, personal/baseline.md, and personal/workspaces.md.
+Do not create Notion or Todoist resources until I approve.
+```
+
+Full playbooks and prompts: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).
+
+## Redistributing the Skill to Other Projects
+
+The [skills/polymath-caliper/](skills/polymath-caliper/) folder is completely self-contained (`SKILL.md`, `references/`, and `templates/`) and resolves `personal/` relative to the active workspace root:
+
+- **Global (all projects in Cursor):** Copy or symlink `skills/polymath-caliper` to `~/.cursor/skills/polymath-caliper`.
+- **Single target project:** Copy `skills/polymath-caliper` to `<project>/.cursor/skills/polymath-caliper`.

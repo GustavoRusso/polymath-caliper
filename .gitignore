@@ -1,0 +1,12 @@
+# Personal instance data (created by polymath-caliper init from skill templates)
+personal/
+
+# Local credentials and environment
+.env
+.env.*
+!.env.example
+
+# Local MCP / agent credential overrides
+*.local.json
+.cursor/mcp.local.json
+.vscode/mcp.local.json
