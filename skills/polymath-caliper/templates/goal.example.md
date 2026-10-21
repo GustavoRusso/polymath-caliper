@@ -14,12 +14,11 @@ Copy this file to `personal/goal.md` during `init`. There is only **one Goal** p
   - `<SUCCESS_CRITERION_2>`
 - **Reference resources / links (optional):** `<RELEVANT_LINKS_DOCS_OR_ARTIFACTS>`
 
-## 2. Execution Capacity & Rules
+## 2. Execution Capacity
 
 - **Available schedule:** `<AVAILABLE_DAYS_AND_HOURS>`
 - **Weekly planned execution budget:** `<PLANNED_HOURS>` hours
 - **Weekly unplanned reserve:** `<RESERVE_HOURS>` hours (kept free for spillover, urgent work, and recovery)
-- **Output / evidence rules:** `<OUTPUT_AND_EVIDENCE_RULES>`
 
 ## 3. Focus Areas Serving This Goal
 

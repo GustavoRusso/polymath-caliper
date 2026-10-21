@@ -52,8 +52,6 @@ Use four lanes:
 - **Open:** one selected exploration topic at a time.
 - **Parking Lot:** valuable ideas that have no current commitment.
 
-Apply any language, output, or evidence rules stated in `personal/goal.md`.
-
 ## Focus Areas and lane mapping
 
 Focus Areas, competing choices, and initial lane assignments live in `personal/goal.md` (index) and `personal/focus-areas/*.md`.
