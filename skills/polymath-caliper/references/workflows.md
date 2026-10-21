@@ -8,21 +8,25 @@ Invoke the `polymath-caliper` skill with an operation mode (`init`, `roadmap`, `
 
 Do this once when starting a new Goal in any workspace. Invoke the `polymath-caliper` skill with mode `init`.
 
-Templates live in [templates/](../templates/):
+`init` runs as **sequential file gates**: one file at a time. The Planner reports what is missing on the current file, asks only for those gaps, writes the file when complete, then moves to the next gate. See [SKILL.md](../SKILL.md) `init` for per-gate behavior.
 
-1. Copy [goal.example.md](../templates/goal.example.md) → `personal/goal.md`.
-2. Copy [focus-area.example.md](../templates/focus-area.example.md) → `personal/focus-areas/<slug>.md` for each Focus Area.
-3. Copy [workspaces.example.md](../templates/workspaces.example.md) → `personal/workspaces.md`.
-4. Fill in The Goal, Focus Areas, capacity, unresolved decisions, and workspace titles — or ask the Planner to collect them via one of these methods:
+Templates live in [templates/](../templates/). Order:
+
+| Gate | Copy from | Write to | Complete when |
+|---|---|---|---|
+| 1 | [goal.example.md](../templates/goal.example.md) | `personal/goal.md` | No unreplaced `<PLACEHOLDER>` tokens |
+| 2 | [focus-area.example.md](../templates/focus-area.example.md) | `personal/focus-areas/<slug>.md` for each Focus Area in the Goal index (one file at a time) | No unreplaced `<PLACEHOLDER>` tokens |
+| 3 | [workspaces.example.md](../templates/workspaces.example.md) | `personal/workspaces.md` | Init-required fields filled; deferred IDs/URLs may stay placeholders until after approved external setup |
+| 4 | [baseline.example.md](../templates/baseline.example.md) | `personal/baseline.md` (Planner writes) | No unreplaced placeholders |
+
+Input styles for Gates 1–3:
 
 | Method | When to use |
 |---|---|
-| Guided interview | You want the Planner to ask structured questions for each field. |
-| Free-text brain dump | You paste goals, constraints, schedule, links, and topics in one message; the Planner extracts fields and asks only for gaps. |
-| Existing workspace binding | You already have a Notion page, Todoist project, or Obsidian vaults; the Planner binds their URLs/IDs/paths. |
-| Manual edit | You copy and edit the templates yourself; the Planner validates and provisions external tools. |
-
-5. Ask the Planner to evaluate The Goal and Focus Areas and write `personal/baseline.md` from [baseline.example.md](../templates/baseline.example.md).
+| Guided interview | You want the Planner to ask structured questions for the **current file's** missing fields only. |
+| Free-text brain dump | You paste goals, constraints, schedule, links, and topics in one message; the Planner applies what belongs to the current gate and asks only for remaining gaps on that file. |
+| Existing workspace binding | You already have a Notion page, Todoist project, or Obsidian vaults; used at Gate 3. |
+| Manual edit | You copy and edit the current template yourself; the Planner validates and asks for any remaining gaps. |
 
 `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, and `personal/workspaces.md` must be gitignored in the target workspace. Never commit them.
 
@@ -30,10 +34,9 @@ Example onboarding prompt:
 
 ```text
 Use the polymath-caliper skill in init mode.
-Interview me (or accept a brain dump) to create personal/goal.md,
-personal/focus-areas/*.md, personal/baseline.md, and personal/workspaces.md.
-Ask only for my Goal statement, deadline, constraints, capacity,
-Focus Areas, and preferred workspace titles.
+Complete personal files one gate at a time (goal.md, then each
+focus-areas/<slug>.md, then workspaces.md, then baseline.md).
+For the current file only: report what is missing and ask for it.
 Do not create Notion or Todoist resources until I approve.
 ```
 

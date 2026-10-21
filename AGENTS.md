@@ -23,13 +23,12 @@ Read [skills/polymath-caliper/references/todoist-workspace.md](skills/polymath-c
 
 ### Personal instance bootstrap
 
-If `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, or `personal/workspaces.md` does not exist (or still contains unreplaced `<PLACEHOLDER>` tokens):
+If `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, or `personal/workspaces.md` does not exist (or still contains unreplaced `<PLACEHOLDER>` tokens that block its gate — for workspaces, only init-required fields block):
 
-1. Run the `polymath-caliper` skill in **`init`** mode. Templates are [skills/polymath-caliper/templates/goal.example.md](skills/polymath-caliper/templates/goal.example.md), [skills/polymath-caliper/templates/focus-area.example.md](skills/polymath-caliper/templates/focus-area.example.md), [skills/polymath-caliper/templates/baseline.example.md](skills/polymath-caliper/templates/baseline.example.md), and [skills/polymath-caliper/templates/workspaces.example.md](skills/polymath-caliper/templates/workspaces.example.md).
-2. Collect instance data via guided interview, free-text brain dump, binding existing Notion/Todoist/Obsidian resources, or validating a manual edit of the templates.
-3. As the Planner, evaluate The Goal and Focus Areas and write `personal/baseline.md` before proposing the first roadmap or Task Tracker tasks.
-4. Do not create Notion pages, Todoist projects, or other external resources until the user explicitly approves those setup steps.
-5. After approved external setup, write the resulting URLs, paths, and IDs into `personal/workspaces.md`.
+1. Run the `polymath-caliper` skill in **`init`** mode. Follow its **sequential file gates**: `personal/goal.md` → each `personal/focus-areas/<slug>.md` → `personal/workspaces.md` → Planner-written `personal/baseline.md`. Templates: [goal.example.md](skills/polymath-caliper/templates/goal.example.md), [focus-area.example.md](skills/polymath-caliper/templates/focus-area.example.md), [workspaces.example.md](skills/polymath-caliper/templates/workspaces.example.md), [baseline.example.md](skills/polymath-caliper/templates/baseline.example.md).
+2. For the current gate only: report missing fields, ask for them (or extract from a brain dump / validate a manual edit), write the file when complete, then advance.
+3. Do not create Notion pages, Todoist projects, or other external resources until the user explicitly approves those setup steps.
+4. After approved external setup, write the resulting URLs, paths, and IDs into `personal/workspaces.md`.
 
 Never commit anything under `personal/`. That directory is gitignored personal instance data created on demand during `init`.
 

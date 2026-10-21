@@ -23,27 +23,42 @@ polymath-caliper/
 ## Pre-flight
 
 1. Apply the [Isolation and approval](#isolation-and-approval-always) rules below on every invocation. If the active workspace also has an `AGENTS.md`, read it for any additional project constraints.
-2. Resolve `personal/` relative to the active workspace root. Check whether `personal/goal.md`, at least one file under `personal/focus-areas/`, `personal/baseline.md`, and `personal/workspaces.md` exist and contain no unreplaced `<PLACEHOLDER>` tokens.
-3. If any required file is missing or incomplete, or the user requested **`init`**, run **`init`** before any other mode.
+2. Resolve `personal/` relative to the active workspace root. Check whether `personal/goal.md`, at least one file under `personal/focus-areas/`, `personal/baseline.md`, and `personal/workspaces.md` exist. Treat a file as incomplete if it has unreplaced `<PLACEHOLDER>` tokens that block its gate (for `personal/workspaces.md`, only **init-required** fields block; deferred IDs/URLs may remain placeholders — see [workspaces.example.md](templates/workspaces.example.md)).
+3. If any required file is missing or incomplete, or the user requested **`init`**, run **`init`** before any other mode (resume at the first incomplete gate).
 4. Otherwise select the requested mode: `init` | `roadmap` | `daily` | `weekly` | `evaluate`. If the user did not name a mode, infer it from the request (bootstrap → `init`, first/multi-week plan → `roadmap`, end-of-day → `daily`, Sunday/weekly review → `weekly`, new interest/course → `evaluate`).
 
 ## Operation modes
 
 ### `init`
 
-Bootstrap or refresh the personal instance in the active workspace.
+Bootstrap or refresh the personal instance in the active workspace using **sequential file gates**. Complete one gate before starting the next. Do not interview ahead for later gates. If the user volunteers data for a later file early, stash it and apply it when that gate starts—still validate that gate before moving on.
 
-1. Read [goal.example.md](templates/goal.example.md), [focus-area.example.md](templates/focus-area.example.md), [baseline.example.md](templates/baseline.example.md), and [workspaces.example.md](templates/workspaces.example.md).
-2. Collect instance data via one of:
-   - **Guided interview** — structured questions for The Goal, Focus Areas, capacity, workspace titles, and Obsidian vault paths.
-   - **Free-text brain dump** — parse a pasted goals/constraints/schedule dump; ask only for missing fields.
-   - **Existing workspace binding** — locate or accept an existing Notion page, Todoist project, and/or Obsidian vault paths; record URLs/IDs/paths in `personal/workspaces.md`.
-   - **Manual edit** — validate user-edited `personal/*.md` files against the templates.
-3. Ensure `personal/` is listed in the active workspace's `.gitignore` (or `.git/info/exclude`) so personal data is never committed, then write `personal/goal.md`, `personal/focus-areas/<slug>.md` for each Focus Area, and `personal/workspaces.md` (creating `personal/` if needed).
-4. As the **Planner**, evaluate The Goal and Focus Areas against available evidence and write `personal/baseline.md` (distance to the Goal; next-task starting points).
-5. Propose Notion page + `Roadmap Items` database and Todoist (Task Tracker) project + sections + recurring weekly-review task per [workflows.md](references/workflows.md), [notion-workspace.md](references/notion-workspace.md), and [todoist-workspace.md](references/todoist-workspace.md).
-6. Wait for explicit approval before any external create/update. After approval, write resulting URLs and IDs back into `personal/workspaces.md`.
-7. Never create external resources until the user approves.
+Ensure `personal/` is listed in the active workspace's `.gitignore` (or `.git/info/exclude`) so personal data is never committed. Create `personal/` if needed.
+
+**Input styles** (any gate that needs user data may use one or more):
+
+- **Guided interview** — structured questions for the current file's missing fields only.
+- **Free-text brain dump** — parse a pasted dump; apply what belongs to the current gate; ask only for remaining gaps on that file.
+- **Existing workspace binding** — for Gate 3, locate or accept an existing Notion page, Todoist project, and/or Obsidian vault paths.
+- **Manual edit** — validate a user-edited file against its template; report and ask for any remaining gaps.
+
+**Per-gate behavior** (for the current gate only):
+
+1. Load the matching template from `templates/`.
+2. If the target file is missing, say so and start from the template.
+3. If it exists, scan for unreplaced `<PLACEHOLDER>` tokens (for Gate 3, only **init-required** placeholders block; see [workspaces.example.md](templates/workspaces.example.md)).
+4. Report what is already filled vs what is missing.
+5. Ask only for the missing fields for this file (or extract them from a prior brain dump, then ask only for remaining gaps).
+6. Write/update that file when complete; confirm completion to the user; then advance.
+
+| Gate | Target | Complete when | Who fills |
+|---|---|---|---|
+| 1 | `personal/goal.md` from [goal.example.md](templates/goal.example.md) | No unreplaced `<PLACEHOLDER>` tokens | User |
+| 2 | Each `personal/focus-areas/<slug>.md` listed in the Goal index, from [focus-area.example.md](templates/focus-area.example.md) — one Focus Area file at a time | No unreplaced `<PLACEHOLDER>` tokens | User |
+| 3 | `personal/workspaces.md` from [workspaces.example.md](templates/workspaces.example.md) | Init-required fields filled; deferred IDs/URLs may remain placeholders until after approved external setup | User (+ later Planner write-back) |
+| 4 | `personal/baseline.md` from [baseline.example.md](templates/baseline.example.md) | No unreplaced placeholders; distance to the Goal and next-task starting points recorded | Planner (may ask short clarifying questions about evidence) |
+
+After Gate 4: propose Notion page + `Roadmap Items` database and Todoist (Task Tracker) project + sections + recurring weekly-review task per [workflows.md](references/workflows.md), [notion-workspace.md](references/notion-workspace.md), and [todoist-workspace.md](references/todoist-workspace.md). Wait for explicit approval before any external create/update. After approval, write resulting URLs and IDs back into `personal/workspaces.md`. Never create external resources until the user approves.
 
 ### `roadmap`
 

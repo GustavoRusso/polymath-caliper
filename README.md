@@ -26,7 +26,7 @@ Invoke the `polymath-caliper` skill with an operation mode:
 
 | Mode | Purpose |
 |---|---|
-| `init` | Create `personal/goal.md`, `personal/focus-areas/*.md`, `personal/baseline.md`, and `personal/workspaces.md` from skill templates (guided interview, brain dump, existing workspace binding, or manual edit), then provision Notion/Todoist after approval |
+| `init` | Complete personal files one gate at a time (`goal.md` → each `focus-areas/<slug>.md` → `workspaces.md` → Planner-written `baseline.md`), asking only for missing fields on the current file; then provision Notion/Todoist after approval |
 | `roadmap` | Multi-week roadmap and first/next week proposal from the Baseline |
 | `daily` | End-of-day check-in and tomorrow's adjustments |
 | `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline |
@@ -36,8 +36,8 @@ Example:
 
 ```text
 Use the polymath-caliper skill in init mode.
-Interview me (or accept a brain dump) to create personal/goal.md,
-personal/focus-areas/*.md, personal/baseline.md, and personal/workspaces.md.
+Complete personal files one gate at a time; for the current file only,
+report what is missing and ask for it.
 Do not create Notion or Todoist resources until I approve.
 ```
 
