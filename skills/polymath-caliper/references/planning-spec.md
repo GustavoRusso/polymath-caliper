@@ -39,7 +39,7 @@ The Planner always uses the current Baseline as the starting point when proposin
 
 ## Capacity and lanes
 
-Capacity defaults come from `personal/goal.md`. Typical defaults:
+Capacity defaults come from `personal/goal.md`. Section 1 holds goal-shaped constraints (what defines or bounds the outcome). Section 2 holds the target deadline, schedule/budget, and capacity-limiting constraints (time zone, hard availability limits, life/work limits on executable capacity). Typical defaults:
 
 - Work is available on defined weekdays for a fixed daily window.
 - A weekly plan may schedule at most the **planned execution budget** (commonly 20 hours, or four hours a day across five weekdays).

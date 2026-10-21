@@ -195,10 +195,11 @@ Then read my Notion roadmap page.
 
 Interview me before planning. Ask only questions needed to:
 1. refresh my Baseline (how near or far I am from The Goal and each Focus Area),
-2. confirm my exact deadline and constraints,
-3. choose the first Open-lane Focus Area if decisions remain unresolved,
-4. decide what evidence my Goal needs by the deadline,
-5. identify any external constraints.
+2. confirm my exact deadline and capacity-limiting constraints,
+3. confirm any goal-shaped constraints that bound the outcome,
+4. choose the first Open-lane Focus Area if decisions remain unresolved,
+5. decide what evidence my Goal needs by the deadline,
+6. identify any external constraints.
 
 After I answer:
 - update personal/baseline.md,

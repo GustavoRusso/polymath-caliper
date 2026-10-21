@@ -33,7 +33,7 @@ The user's Notion workspace may contain unrelated personal pages and databases. 
 Create these sections in this order:
 
 1. **Outcome**
-   - Target outcome, constraints/context, and target date from `personal/goal.md`
+   - Target outcome and goal-shaped constraints/context from `personal/goal.md` section 1; target date and capacity-limiting constraints from section 2
 2. **Baseline Evaluation**
    - Distance to the Goal, per Focus Area evaluations, and next-task starting points from `personal/baseline.md`
 3. **Lanes**

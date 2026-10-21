@@ -4,11 +4,12 @@ Copy this file to `personal/goal.md` during `init`. There is only **one Goal** p
 
 `personal/goal.md` is gitignored and must not be committed.
 
-## 1. Outcome & Deadline
+## 1. Outcome
 
 - **Goal statement:** `<TARGET_OUTCOME>`
-- **Target deadline:** `<TARGET_DATE>`
-- **Constraints & context:** `<CONSTRAINTS_CONTEXT_OR_TIME_ZONE>`
+- **Constraints & context (goal-shaped):** `<GOAL_CONSTRAINTS_OR_CONTEXT>`
+  - Only constraints that define or bound the *outcome itself* — not schedule, hours, or capacity.
+  - Examples: work arrangement / location rules that define success (`remote-only`, `must remain in <REGION>`); scope boundaries of the outcome (`must stay within <DOMAIN_OR_STACK>`); eligibility or quality bars that shape the target (`<CERTIFICATION_OR_LEVEL_REQUIREMENT>`).
 - **Success criteria (how we know the Goal is reached):**
   - `<SUCCESS_CRITERION_1>`
   - `<SUCCESS_CRITERION_2>`
@@ -16,9 +17,13 @@ Copy this file to `personal/goal.md` during `init`. There is only **one Goal** p
 
 ## 2. Execution Capacity
 
+- **Target deadline:** `<TARGET_DATE>`
 - **Available schedule:** `<AVAILABLE_DAYS_AND_HOURS>`
 - **Weekly planned execution budget:** `<PLANNED_HOURS>` hours
 - **Weekly unplanned reserve:** `<RESERVE_HOURS>` hours (kept free for spillover, urgent work, and recovery)
+- **Constraints & context (capacity-limiting):** `<CAPACITY_CONSTRAINTS_OR_CONTEXT>`
+  - Time zone, hard availability limits, and life/work constraints that reduce executable capacity.
+  - Examples: time zone / sync window (`<TIME_ZONE>`); hard caps beyond the weekly budget (`no weekends`, `mornings blocked`); life/work limits on capacity (`current job hours`, `caregiving days`, `travel weeks`).
 
 ## 3. Focus Areas Serving This Goal
 
