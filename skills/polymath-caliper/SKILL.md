@@ -62,7 +62,25 @@ After Gate 4: propose Notion page + `Roadmap Items` database and Todoist (Task T
 
 ### `roadmap`
 
-Initial or major replanning session. Read [planning-spec.md](references/planning-spec.md) and [workflows.md](references/workflows.md) sections 2–4. Interview only as needed, refresh `personal/baseline.md` from The Goal and Focus Areas, then propose a multi-week roadmap, lane assignments, measurable evidence, and a first/next week within the planned execution budget — using Baseline starting points for Task Tracker tasks. Do not update Notion or Todoist until approved.
+Initial or major replanning session. Read [planning-spec.md](references/planning-spec.md) and [workflows.md](references/workflows.md) sections 2–4 for deeper detail.
+
+1. **Pre-read:** `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, `personal/workspaces.md`, then the locked Notion roadmap page (and the locked Task Tracker project / relevant registered Obsidian vaults when available).
+2. **Interview first** — ask only questions needed to:
+   - refresh the Baseline (how near or far from The Goal and each Focus Area)
+   - confirm the exact deadline and capacity-limiting constraints
+   - confirm any goal-shaped constraints that bound the outcome
+   - choose the first Open-lane Focus Area if decisions remain unresolved
+   - decide what evidence The Goal needs by the deadline
+   - identify any external constraints
+   - resolve any Open Decisions listed in `personal/goal.md`
+3. **After answers:**
+   - update `personal/baseline.md`
+   - propose a multi-week roadmap
+   - assign each Focus Area to one lane
+   - define measurable evidence for each major item
+   - propose the first/next week using no more than the planned execution budget, with tasks derived from Baseline starting points
+   - leave the unplanned reserve empty
+   - do not update Notion or Todoist until approved
 
 ### `daily`
 

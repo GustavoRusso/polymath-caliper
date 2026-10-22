@@ -186,30 +186,10 @@ Before the first weekly plan, answer the unresolved decisions listed in `persona
 
 Give the Planner access to the Notion page, relevant Obsidian vaults, and Todoist project if the current tool supports those connections. Configure and authorize only the connections needed for Notion and Todoist. If a connection is unavailable, use the ready-to-apply change set the Planner provides.
 
-Then send this prompt:
+Then send this prompt (the skill owns the interview checklist and post-answer deliverables):
 
 ```text
 Use the polymath-caliper skill in roadmap mode.
-Read personal/goal.md, personal/focus-areas/, personal/baseline.md, and personal/workspaces.md first.
-Then read my Notion roadmap page.
-
-Interview me before planning. Ask only questions needed to:
-1. refresh my Baseline (how near or far I am from The Goal and each Focus Area),
-2. confirm my exact deadline and capacity-limiting constraints,
-3. confirm any goal-shaped constraints that bound the outcome,
-4. choose the first Open-lane Focus Area if decisions remain unresolved,
-5. decide what evidence my Goal needs by the deadline,
-6. identify any external constraints.
-
-After I answer:
-- update personal/baseline.md,
-- propose a multi-week roadmap,
-- assign each Focus Area to one lane,
-- define measurable evidence for each major item,
-- propose the first week using no more than my planned execution budget,
-  with tasks derived from Baseline starting points,
-- leave the unplanned reserve empty,
-- do not update Notion or Todoist until I approve.
 ```
 
 Review the roadmap before approving it. In particular, check that it includes direct Goal-advancing activity from week one, rather than postponing it until after study goals.
