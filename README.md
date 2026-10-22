@@ -32,13 +32,37 @@ Invoke the `polymath-caliper` skill with an operation mode:
 | `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline |
 | `evaluate` | Parking Lot trade-off for a new interest or course |
 
-Example:
+Examples:
 
 ```text
 Use the polymath-caliper skill in init mode.
 Complete personal files one gate at a time; for the current file only,
 report what is missing and ask for it.
 Do not create Notion or Todoist resources until I approve.
+```
+
+```text
+Use the polymath-caliper skill in roadmap mode.
+Read personal/goal.md, personal/focus-areas/, personal/baseline.md, and personal/workspaces.md first.
+Then read my Notion roadmap page.
+
+Interview me before planning. Ask only questions needed to:
+1. refresh my Baseline (how near or far I am from The Goal and each Focus Area),
+2. confirm my exact deadline and capacity-limiting constraints,
+3. confirm any goal-shaped constraints that bound the outcome,
+4. choose the first Open-lane Focus Area if decisions remain unresolved,
+5. decide what evidence my Goal needs by the deadline,
+6. identify any external constraints.
+
+After I answer:
+- update personal/baseline.md,
+- propose a multi-week roadmap,
+- assign each Focus Area to one lane,
+- define measurable evidence for each major item,
+- propose the first week using no more than my planned execution budget,
+  with tasks derived from Baseline starting points,
+- leave the unplanned reserve empty,
+- do not update Notion or Todoist until I approve.
 ```
 
 Full playbooks and prompts: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).
