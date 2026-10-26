@@ -30,15 +30,15 @@ Input styles for Gates 1–3:
 
 `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, and `personal/workspaces.md` must be gitignored in the target workspace. Never commit them.
 
-Example onboarding prompt:
+A short invocation is enough (you can optionally paste a brain dump in the same message):
 
 ```text
-Use the polymath-caliper skill in init mode.
-Complete personal files one gate at a time (goal.md, then each
-focus-areas/<slug>.md, then workspaces.md, then baseline.md).
-For the current file only: report what is missing and ask for it.
-Do not create Notion or Todoist resources until I approve.
+/polymath-caliper init
 ```
+
+Equivalent: `Use the polymath-caliper skill in init mode.`
+
+The Planner automatically walks Gates 1–4 one file at a time, then proposes Notion/Todoist provisioning and waits for your approval before creating external resources.
 
 ## 1. Set up the five components
 
@@ -48,13 +48,7 @@ Do this once during a 60–90 minute setup session after the personal files exis
 
 Create a dedicated chat or workspace named after your system instance (for example the workspace title in `personal/workspaces.md`). Use it only for this system, so its context stays focused.
 
-Start the Planner with this instruction:
-
-```text
-Use the polymath-caliper skill. Read its planning-spec.md reference along with
-personal/goal.md, personal/focus-areas/, personal/baseline.md, and personal/workspaces.md before acting.
-Follow the external-system approval protocol.
-```
+In that chat, invoke any mode directly with `/polymath-caliper <mode>` (`init`, `roadmap`, `daily`, `weekly`, `evaluate`). The skill owns what to read, what to ask if missing, what to return, and which approvals to request.
 
 Use the Planner's supported integrations, APIs, or computer-use capability to connect to the external systems. Review the proposed actions before approving external updates.
 
@@ -186,17 +180,24 @@ Before the first weekly plan, answer the unresolved decisions listed in `persona
 
 Give the Planner access to the Notion page, relevant Obsidian vaults, and Todoist project if the current tool supports those connections. Configure and authorize only the connections needed for Notion and Todoist. If a connection is unavailable, use the ready-to-apply change set the Planner provides.
 
-Then send this prompt (the skill owns the interview checklist and post-answer deliverables):
+A short invocation is enough — the skill owns auto-reads, missing-input questions, the roadmap + first-week proposal, and approval gates (see [SKILL.md](../SKILL.md) `roadmap`):
 
 ```text
-Use the polymath-caliper skill in roadmap mode.
+/polymath-caliper roadmap
 ```
 
-Review the roadmap before approving it. In particular, check that it includes direct Goal-advancing activity from week one, rather than postponing it until after study goals.
+Equivalent: `Use the polymath-caliper skill in roadmap mode.`
 
-## 4. First-week plan creation
+During `roadmap` the Planner will:
 
-Ask the Planner to propose the first week using this structure:
+1. Read `personal/*.md`, locked Notion roadmap, locked Todoist project, and relevant Obsidian notes.
+2. Ask only for unresolved gaps (stale Baseline, deadline/capacity bounds, Open Decisions, single Open-lane choice, evidence bar, external constraints).
+3. Return the updated Baseline draft, lane assignment table, multi-week roadmap (with direct Goal-advancing Build work from week one), first/next week task plan within budget, and exact external changes.
+4. Wait for your approval (roadmap & week plan / with edits / roadmap only / proposal only) before writing `personal/baseline.md`, Notion, or Todoist.
+
+## 4. First-week plan structure
+
+When `roadmap` (or `weekly`) proposes a week, it covers these areas within your planned execution budget:
 
 | Area | Required outcome |
 |---|---|

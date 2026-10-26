@@ -22,43 +22,15 @@ The system coordinates five components with strict separation between the **reus
 
 ## Getting Started
 
-Invoke the `polymath-caliper` skill with an operation mode:
+Every operation mode is self-contained — invoke it with `/polymath-caliper <mode>` and the skill handles what to read, what to ask when inputs are missing, what to return, and which approvals to request:
 
-| Mode | Purpose |
-|---|---|
-| `init` | Complete personal files one gate at a time (`goal.md` → each `focus-areas/<slug>.md` → `workspaces.md` → Planner-written `baseline.md`), asking only for missing fields on the current file; then provision Notion/Todoist after approval |
-| `roadmap` | Multi-week roadmap and first/next week proposal from the Baseline |
-| `daily` | End-of-day check-in and tomorrow's adjustments. Short form `/polymath-caliper daily` is enough |
-| `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline. Short form `/polymath-caliper weekly` is enough |
-| `evaluate` | Parking Lot trade-off for a new interest or course. Short form `/polymath-caliper evaluate` plus the candidate is enough |
-
-Examples:
-
-```text
-Use the polymath-caliper skill in init mode.
-Complete personal files one gate at a time; for the current file only,
-report what is missing and ask for it.
-Do not create Notion or Todoist resources until I approve.
-```
-
-```text
-Use the polymath-caliper skill in roadmap mode.
-```
-
-```text
-/polymath-caliper daily
-```
-
-```text
-/polymath-caliper weekly
-```
-
-```text
-/polymath-caliper evaluate
-<one-line description or link>
-```
-
-For `daily`, `weekly`, and `evaluate`, the skill owns reads, missing-input questions, return shape, and approvals — no long prompt required.
+| Invocation | Mode | What it does |
+|---|---|---|
+| `/polymath-caliper init` | `init` | Complete `personal/goal.md` → `personal/focus-areas/<slug>.md` → `personal/workspaces.md` → `personal/baseline.md` one gate at a time; then propose Notion/Todoist provisioning for approval |
+| `/polymath-caliper roadmap` | `roadmap` | Auto-read personal + external state, ask only unresolved roadmap questions, propose Baseline refresh + lane map + multi-week roadmap + Week 1 plan for approval |
+| `/polymath-caliper daily` | `daily` | End-of-day check-in; auto-read Todoist Today/This Week, ask only for missing check-in fields, propose tomorrow's adjustments for approval |
+| `/polymath-caliper weekly` | `weekly` | Weekly review across Todoist, Obsidian, and Notion; draft updated Baseline and next-week plan within budget for approval |
+| `/polymath-caliper evaluate` | `evaluate` | Evaluate a new course/idea against the Parking Lot rule (include a one-line description or link, or let the Planner ask for it) |
 
 Full playbooks: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).
 

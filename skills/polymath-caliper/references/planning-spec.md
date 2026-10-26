@@ -100,7 +100,7 @@ Full step order (auto-read → ask-if-missing → proposal → approvals): [SKIL
 
 ### Approval and updates
 
-End every `roadmap`, `weekly`, `daily`, and `evaluate` proposal with an explicit approval ask: approve all listed changes, approve with named edits, or keep as proposal only (no writes). Wait for explicit approval. Once approved, apply only the listed roadmap, Baseline, and task updates that the Planner is authorized and able to perform. Then report the completed updates, skipped updates, and their reasons.
+End every `init` (external provisioning), `roadmap`, `weekly`, `daily`, and `evaluate` proposal with an explicit approval ask: approve all listed changes, approve with named edits, or keep as proposal/local only (no external writes). Wait for explicit approval. Once approved, apply only the listed roadmap, Baseline, workspace-binding, and task updates that the Planner is authorized and able to perform. Then report the completed updates, skipped updates, and their reasons.
 
 ### Daily check-in
 
