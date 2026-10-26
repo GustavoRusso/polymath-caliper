@@ -3,13 +3,14 @@ name: polymath-caliper
 description: >-
   Bootstraps and runs the Goal-driven planning workflow (init, roadmap, daily,
   weekly, evaluate). Trigger on `/polymath-caliper`, `/polymath-caliper <mode>`,
-  or plain requests to init/roadmap/daily/weekly/evaluate. Short form
-  `/polymath-caliper weekly` is enough for a full weekly review — the skill
-  owns reads, missing-input questions, return shape, and approval gates.
+  or plain requests to init/roadmap/daily/weekly/evaluate. Short forms
+  `/polymath-caliper daily`, `/polymath-caliper weekly`, and
+  `/polymath-caliper evaluate` are enough — the skill owns reads,
+  missing-input questions, return shape, and approval gates for each mode.
   Also use when cloning or initializing personal/goal.md, personal/focus-areas/,
   personal/baseline.md, and personal/workspaces.md; configuring
-  Notion/Todoist/Obsidian; proposing a multi-week roadmap; running a daily
-  check-in; or evaluating a new interest against the Parking Lot decision rule.
+  Notion/Todoist/Obsidian; proposing a multi-week roadmap; or evaluating a new
+  interest against the Parking Lot decision rule.
 ---
 
 # Polymath Caliper — Goal-Driven Planning
@@ -88,7 +89,22 @@ Initial or major replanning session. Read [planning-spec.md](references/planning
 
 ### `daily`
 
-End-of-day check-in. Expect (or ask for):
+End-of-day check-in. **Invocation:** `/polymath-caliper daily` (or equivalent short form) is a complete request — run the full procedure below without asking for a longer prompt. Load [planning-spec.md](references/planning-spec.md) (daily check-in), [todoist-workspace.md](references/todoist-workspace.md), and [notion-workspace.md](references/notion-workspace.md) / [obsidian-workspace.md](references/obsidian-workspace.md) as needed. Deeper playbook context: [workflows.md](references/workflows.md) section 5.
+
+#### 1. Auto-read (always)
+
+Read in this order, then proceed — do not wait for the user to paste a check-in template:
+
+1. `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, `personal/workspaces.md`
+2. Locked Todoist project: tasks in **Today** and **This Week** (completed today, still open, overdue in-project); note due dates and estimates
+3. Locked Notion page when useful: current Weekly plan and active Roadmap Items (status / next action)
+4. Relevant registered Obsidian vaults (optional): notes created or edited today that map to active Focus Areas — read-only
+
+If an integration is unavailable, say so briefly and continue; ask only for the gaps in step 2.
+
+#### 2. Ask only when missing
+
+Ask the fewest questions needed. Prefer inferring completed/incomplete from Todoist. Use this shape when asking (fill what you already know; leave blanks for the user):
 
 ```text
 Completed:
@@ -98,7 +114,37 @@ New evidence or notes:
 Available time tomorrow:
 ```
 
-Return a short proposal for tomorrow grounded in `personal/baseline.md`. Do not reshuffle the full week without approval. Details: [planning-spec.md](references/planning-spec.md) and [workflows.md](references/workflows.md) section 5.
+| Gap | Ask for |
+|---|---|
+| Completions unclear | What finished today (if Todoist does not show it) |
+| Incomplete items lack reasons | Why each open/overdue Today item stalled |
+| Blockers unknown | What is blocking progress (or confirm none) |
+| Evidence ambiguous | Links or short description of new evidence/notes from today |
+| Tomorrow capacity unknown | Available time tomorrow (hours or window); default to the daily window in `personal/goal.md` if unstated |
+| Week reshuffle requested by user | Confirm they want a mid-week replan (otherwise keep the week intact) |
+
+Do not open a full weekly or roadmap interview. If the day reveals a need for major replanning, suggest `weekly` or `roadmap` after finishing this check-in.
+
+#### 3. Produce the daily proposal
+
+Return **one short** proposal grounded in `personal/baseline.md`:
+
+1. **Today's read-back** — completed, not completed (with reasons), blockers, new evidence (brief)
+2. **Tomorrow's plan** — concrete tasks with outcomes and 25–90 min estimates, within tomorrow's available time and the week's planned execution budget
+3. **Carry-overs** — what moves to tomorrow vs stays in This Week (no silent whole-week reshuffle)
+4. **Exact external changes awaiting approval** — Todoist completes/reschedules/moves into Today (and Notion next-action tweaks only if essential); note if Baseline is unchanged (usual for daily)
+
+Do **not** reshuffle the full week, rewrite the multi-week roadmap, or write Notion/Todoist/`personal/baseline.md` until step 4 is approved. Baseline writes are rare on daily — only propose them when today's evidence clearly changes distance to The Goal.
+
+#### 4. Approvals to request
+
+End with an explicit approval ask:
+
+- **Approve tomorrow's adjustments** — apply the listed Todoist (and any listed Notion) changes
+- **Approve with edits** — user names exclusions or modifications; then apply only the revised set
+- **Proposal only** — leave external systems unchanged
+
+On approval: apply only approved in-project Todoist updates; stay inside workspace locks; never delete Todoist or Obsidian objects. Report completed vs skipped updates. If access is missing, return a ready-to-apply change set.
 
 ### `weekly`
 
@@ -158,7 +204,53 @@ On approval: apply only the approved items the Planner can access; refresh `pers
 
 ### `evaluate`
 
-Apply the Parking Lot decision rule to a new course, technology, or idea. Ask whether it improves chances of hitting the Goal deadline, which active Focus Area or item it would replace, and what evidence it would produce. Promote to Open only after explicit approval; then refresh the Baseline. Details: [planning-spec.md](references/planning-spec.md) and [workflows.md](references/workflows.md) section 7.
+Parking Lot decision rule for a new course, technology, or idea. **Invocation:** `/polymath-caliper evaluate` plus a short description of the interest (or equivalent short form) is a complete request — run the full procedure below without asking for a longer prompt. Load [planning-spec.md](references/planning-spec.md) (decision rule), [notion-workspace.md](references/notion-workspace.md), and [todoist-workspace.md](references/todoist-workspace.md) as needed. Deeper playbook context: [workflows.md](references/workflows.md) section 7.
+
+#### 1. Auto-read (always)
+
+Read in this order, then proceed:
+
+1. `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, `personal/workspaces.md`
+2. Locked Notion page: lanes (especially **Open** and **Parking Lot**), Roadmap Items, Decisions
+3. Locked Todoist project (light touch): current This Week load, so replacement cost is visible
+4. The candidate itself from the user message (name, link, scope). If only `/polymath-caliper evaluate` was sent with no candidate, ask for that one item first, then continue.
+
+Do not schedule Task Tracker work for the candidate during this mode.
+
+#### 2. Ask only when missing
+
+Ask the fewest questions needed to apply the decision rule.
+
+| Gap | Ask for |
+|---|---|
+| Candidate unclear | What to evaluate (name, link, one-line scope) |
+| Deadline impact unclear | How the user believes it improves chances of hitting The Goal by the deadline (or confirm they are unsure) |
+| Replacement unclear | Which active Focus Area or roadmap item it would replace or defer (required before any Open promotion) |
+| Evidence unclear | What verifiable evidence it would produce, and by when |
+| Open lane already occupied | Confirm displace current Open item, wait in Parking Lot, or reject |
+| Capacity conflict | Whether it fits inside the planned execution budget without stealing Build/Reading time needed for the deadline |
+
+#### 3. Produce the evaluate proposal
+
+Return **one** proposal with:
+
+1. **Candidate summary** — what it is and how it maps to The Goal
+2. **Decision-rule answers** — (a) improves deadline odds? (b) what it replaces? (c) what evidence it produces?
+3. **Recommendation** — one of: **Reject**, **Park** (Parking Lot only), or **Promote to Open** (with explicit displace/replace plan)
+4. **Tradeoffs and risks** — capacity, Focus Area contention, deadline risk
+5. **Exact external changes awaiting approval** — e.g. add/update Notion Parking Lot or Open item, Decision log entry, optional Focus Area file stub, Baseline refresh if promotion changes distance/starting points; **no** Todoist tasks unless the user later runs `daily`/`weekly`/`roadmap` after approval
+
+Do **not** promote to Open, write Notion/Todoist, create Focus Area files, or refresh `personal/baseline.md` until step 4 is approved.
+
+#### 4. Approvals to request
+
+End with an explicit approval ask:
+
+- **Approve recommendation** — apply the listed Notion/Baseline (and any Focus Area file) changes for Reject / Park / Promote
+- **Approve with edits** — user adjusts lane, replacement target, or wording; then apply only the revised set
+- **Proposal only** — leave systems unchanged (candidate stays unrecorded unless already in Parking Lot)
+
+On approval: apply only approved items inside workspace locks; never delete Todoist or Obsidian objects; do not add execution tasks in evaluate. After an approved Focus Area or lane change, refresh `personal/baseline.md`. Report completed vs skipped updates, or a ready-to-apply change set if access is missing.
 
 ## Isolation and approval (always)
 

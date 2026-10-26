@@ -219,19 +219,22 @@ Every planned workday:
 5. Add a short Obsidian note in the corresponding vault after meaningful study or project work.
 6. If you cannot complete a task, mark it incomplete and write the reason. Do not silently move it forward.
 
-At the end of the day, send the Planner:
+At the end of the day, a short invocation is enough. The skill owns auto-reads, missing-input questions, the return shape, and approval gates — see [SKILL.md](../SKILL.md) `daily`.
 
 ```text
-Use the polymath-caliper skill in daily mode.
-Daily check-in:
-Completed:
-Not completed:
-Blockers:
-New evidence or notes:
-Available time tomorrow:
+/polymath-caliper daily
 ```
 
-The Planner should respond with a short proposal for tomorrow grounded in `personal/baseline.md`. It should not reshuffle the whole week without your approval.
+Equivalent: `Use the polymath-caliper skill in daily mode.`
+
+Optional: paste any extras the Planner cannot see (blockers, evidence links, tomorrow's available time). The Planner will ask only for gaps.
+
+During the check-in the Planner will:
+
+1. Read personal files and locked Todoist Today/This Week (plus Notion/Obsidian when useful).
+2. Ask only for missing check-in fields (completions, reasons, blockers, evidence, tomorrow capacity).
+3. Return a short tomorrow proposal grounded in `personal/baseline.md` (no full-week reshuffle) plus exact external changes.
+4. Wait for your approval (tomorrow's adjustments / with edits / proposal only) before writing Todoist or Notion.
 
 ## 6. Weekly review (`weekly`)
 
@@ -262,13 +265,20 @@ You then:
 
 When a new course, technology, or idea appears, do not immediately add it to the Task Tracker.
 
-Add it to Notion's Parking Lot (as a Focus Area or candidate) and ask:
+A short invocation plus the candidate is enough. The skill owns auto-reads, missing-input questions, the return shape, and approval gates — see [SKILL.md](../SKILL.md) `evaluate`.
 
 ```text
-Use the polymath-caliper skill in evaluate mode.
-Does this directly improve my chances of achieving The Goal by my deadline?
-What current Focus Area or roadmap item would it replace?
-What evidence would it produce?
+/polymath-caliper evaluate
+<one-line description or link to the course, technology, or idea>
 ```
 
-Only promote it to the Open lane when you explicitly approve that tradeoff. After approval, refresh `personal/baseline.md`.
+Equivalent: `Use the polymath-caliper skill in evaluate mode.` plus the candidate.
+
+During evaluation the Planner will:
+
+1. Read personal files, locked Notion lanes/Roadmap Items/Decisions, and light Todoist This Week load.
+2. Ask only for gaps (candidate scope, deadline impact, what it replaces, evidence, Open-lane conflict).
+3. Return a recommendation: **Reject**, **Park** (Parking Lot), or **Promote to Open** (with replace/displace plan), plus exact external changes — no execution tasks in this mode.
+4. Wait for your approval before writing Notion, Baseline, or any Focus Area file.
+
+Only promote to the Open lane when you explicitly approve that tradeoff. After an approved Focus Area or lane change, the Planner refreshes `personal/baseline.md`.

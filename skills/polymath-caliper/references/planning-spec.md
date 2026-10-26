@@ -100,11 +100,13 @@ Full step order (auto-read → ask-if-missing → proposal → approvals): [SKIL
 
 ### Approval and updates
 
-End every weekly (and roadmap) proposal with an explicit approval ask: approve all listed changes, approve with named edits, or keep as proposal only (no writes). Wait for explicit approval. Once approved, apply only the listed roadmap, Baseline, and task updates that the Planner is authorized and able to perform. Then report the completed updates, skipped updates, and their reasons.
+End every `roadmap`, `weekly`, `daily`, and `evaluate` proposal with an explicit approval ask: approve all listed changes, approve with named edits, or keep as proposal only (no writes). Wait for explicit approval. Once approved, apply only the listed roadmap, Baseline, and task updates that the Planner is authorized and able to perform. Then report the completed updates, skipped updates, and their reasons.
 
 ### Daily check-in
 
-Use the following input format when available:
+Triggered by a short mode invocation (`/polymath-caliper daily` or equivalent). The Planner auto-reads personal files and locked Todoist (Today/This Week), asks only for missing check-in fields, then responds with a short next-day proposal grounded in the current Baseline. Do not reshuffle the full week without approval. End with an explicit approval ask before Todoist/Notion writes.
+
+When asking the user, use this shape (pre-fill what tools already show):
 
 ```text
 Completed:
@@ -114,14 +116,14 @@ New evidence or notes:
 Available time tomorrow:
 ```
 
-Respond with a short proposal for the next day, grounded in the current Baseline. Do not reshuffle the full week without approval.
+Full step order (auto-read → ask-if-missing → proposal → approvals): [SKILL.md](../SKILL.md) `daily`.
 
 ## Decision rule
 
-For a new course, technology, or idea, add it to the Parking Lot (as a Focus Area or candidate) before it receives scheduled work. Evaluate:
+Triggered by a short mode invocation (`/polymath-caliper evaluate` plus the candidate, or equivalent). For a new course, technology, or idea, add it to the Parking Lot (as a Focus Area or candidate) before it receives scheduled work. The Planner auto-reads Goal, Focus Areas, Baseline, and locked Notion lanes, asks only for missing decision inputs, then evaluates:
 
 1. Does it directly improve the chances of achieving the Goal in `personal/goal.md` by the target date?
 2. Which active roadmap item or Focus Area would it replace?
 3. What evidence would it produce?
 
-Promote it to the Open lane only after explicit approval of that tradeoff. Refresh the Baseline after any approved Focus Area change.
+Recommend **Reject**, **Park**, or **Promote to Open**. Promote to the Open lane only after explicit approval of that tradeoff. Do not create Task Tracker execution tasks in evaluate. Refresh the Baseline after any approved Focus Area or lane change. Full step order: [SKILL.md](../SKILL.md) `evaluate`.

@@ -28,9 +28,9 @@ Invoke the `polymath-caliper` skill with an operation mode:
 |---|---|
 | `init` | Complete personal files one gate at a time (`goal.md` → each `focus-areas/<slug>.md` → `workspaces.md` → Planner-written `baseline.md`), asking only for missing fields on the current file; then provision Notion/Todoist after approval |
 | `roadmap` | Multi-week roadmap and first/next week proposal from the Baseline |
-| `daily` | End-of-day check-in and tomorrow's adjustments |
-| `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline. Short form `/polymath-caliper weekly` is enough — the skill owns reads, questions, return shape, and approvals |
-| `evaluate` | Parking Lot trade-off for a new interest or course |
+| `daily` | End-of-day check-in and tomorrow's adjustments. Short form `/polymath-caliper daily` is enough |
+| `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline. Short form `/polymath-caliper weekly` is enough |
+| `evaluate` | Parking Lot trade-off for a new interest or course. Short form `/polymath-caliper evaluate` plus the candidate is enough |
 
 Examples:
 
@@ -46,10 +46,21 @@ Use the polymath-caliper skill in roadmap mode.
 ```
 
 ```text
+/polymath-caliper daily
+```
+
+```text
 /polymath-caliper weekly
 ```
 
-Full playbooks and prompts: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).
+```text
+/polymath-caliper evaluate
+<one-line description or link>
+```
+
+For `daily`, `weekly`, and `evaluate`, the skill owns reads, missing-input questions, return shape, and approvals — no long prompt required.
+
+Full playbooks: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).
 
 ## Redistributing the Skill to Other Projects
 
