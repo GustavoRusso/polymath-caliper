@@ -29,7 +29,7 @@ Invoke the `polymath-caliper` skill with an operation mode:
 | `init` | Complete personal files one gate at a time (`goal.md` → each `focus-areas/<slug>.md` → `workspaces.md` → Planner-written `baseline.md`), asking only for missing fields on the current file; then provision Notion/Todoist after approval |
 | `roadmap` | Multi-week roadmap and first/next week proposal from the Baseline |
 | `daily` | End-of-day check-in and tomorrow's adjustments |
-| `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline |
+| `weekly` | Weekly review across Task Tracker, Knowledge Base, and Roadmap & Memory; refresh Baseline. Short form `/polymath-caliper weekly` is enough — the skill owns reads, questions, return shape, and approvals |
 | `evaluate` | Parking Lot trade-off for a new interest or course |
 
 Examples:
@@ -43,6 +43,10 @@ Do not create Notion or Todoist resources until I approve.
 
 ```text
 Use the polymath-caliper skill in roadmap mode.
+```
+
+```text
+/polymath-caliper weekly
 ```
 
 Full playbooks and prompts: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).

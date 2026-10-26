@@ -2,7 +2,7 @@ Your system has a clear Goal defined in `personal/goal.md` (at the active worksp
 
 The system schedules only the planned execution budget from The Goal (commonly 20 hours across Monday–Friday), while protecting the unplanned reserve (commonly 10 hours) for external opportunities, urgent follow-ups, unexpected tasks, and recovery.
 
-Invoke the `polymath-caliper` skill with an operation mode (`init`, `roadmap`, `daily`, `weekly`, or `evaluate`). See [SKILL.md](../SKILL.md) for mode definitions and pre-flight checks.
+Invoke the `polymath-caliper` skill with an operation mode (`init`, `roadmap`, `daily`, `weekly`, or `evaluate`). Short form `/polymath-caliper <mode>` is enough — the skill owns what to read, what to ask when inputs are missing, what to return, and which approvals to request. See [SKILL.md](../SKILL.md) for mode definitions and pre-flight checks.
 
 ## 0. Initialize the personal instance (`init`)
 
@@ -237,38 +237,26 @@ The Planner should respond with a short proposal for tomorrow grounded in `perso
 
 Create a recurring Task Tracker task: **Weekly review with your Planner** (or the title configured in `personal/workspaces.md`). Record its task ID in `personal/workspaces.md`.
 
-During the review:
-
-1. Export or inspect completed and incomplete Task Tracker tasks.
-2. Let the Planner read the week's relevant Obsidian notes from the registered vaults (or share them).
-3. Ask the Planner to refresh `personal/baseline.md` and update the Notion roadmap after you approve its review.
-4. Decide whether the Open-lane Focus Area stays active, becomes Reading, or returns to Parking Lot.
-5. Approve next week's plan within your planned execution budget, using Baseline starting points.
-
-Use this prompt:
+At review time, a short invocation is enough. The skill owns auto-reads, missing-input questions, the return shape, and approval gates — see [SKILL.md](../SKILL.md) `weekly`.
 
 ```text
-Use the polymath-caliper skill in weekly mode.
-Run my weekly review.
-
-Read:
-- personal/goal.md, personal/focus-areas/, personal/baseline.md, and personal/workspaces.md,
-- completed and incomplete Task Tracker (Todoist) tasks,
-- this week's Obsidian notes from the relevant registered vaults,
-- my Notion roadmap.
-
-Return:
-1. completed outcomes and evidence,
-2. incomplete tasks with the real reason,
-3. progress toward my Goal deadline (updated Baseline draft),
-4. risks to the deadline,
-5. proposed lane changes,
-6. a proposed plan for next week within my planned execution budget,
-   derived from Baseline starting points,
-7. categories of work that may use the unplanned reserve, without scheduling tasks into it.
-
-Do not update Notion or Todoist until I approve.
+/polymath-caliper weekly
 ```
+
+Equivalent: `Use the polymath-caliper skill in weekly mode.`
+
+During the review the Planner will:
+
+1. Read personal files, locked Todoist (completed/incomplete), locked Notion roadmap, and relevant registered Obsidian notes for the review window.
+2. Ask only for gaps it cannot resolve (reasons for incomplete work, Open-lane decision, capacity/deadline changes, missing evidence).
+3. Return the full weekly proposal (outcomes, blockers, Baseline draft, risks, lane changes, next-week plan within budget, unplanned-reserve categories, exact external changes).
+4. Wait for your approval (all / with edits / proposal only) before writing `personal/baseline.md`, Notion, or Todoist.
+
+You then:
+
+1. Decide whether the Open-lane Focus Area stays active, becomes Reading, or returns to Parking Lot (if the Planner asked).
+2. Approve next week's plan within your planned execution budget, using Baseline starting points.
+3. Confirm which listed Notion/Todoist/Baseline updates to apply.
 
 ## 7. Decision rule for every new interest (`evaluate`)
 

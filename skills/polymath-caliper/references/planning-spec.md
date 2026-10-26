@@ -84,7 +84,7 @@ When creating or refreshing `personal/baseline.md`, the Planner must:
 
 ### Weekly proposal
 
-Provide a proposal containing:
+Triggered by a short mode invocation (`/polymath-caliper weekly` or equivalent). The Planner auto-reads personal files and locked external systems, asks only for missing inputs, then provides a proposal containing:
 
 1. Completed outcomes and evidence from the previous week.
 2. Incomplete work and its actual blockers.
@@ -96,9 +96,11 @@ Provide a proposal containing:
 8. The exact Notion and Todoist (Task Tracker) changes awaiting approval.
 9. An updated Baseline draft when distance to the Goal has changed.
 
+Full step order (auto-read → ask-if-missing → proposal → approvals): [SKILL.md](../SKILL.md) `weekly`.
+
 ### Approval and updates
 
-Wait for explicit approval of the proposal. Once approved, apply only the listed roadmap and task updates that the Planner is authorized and able to perform. Then report the completed updates, skipped updates, and their reasons.
+End every weekly (and roadmap) proposal with an explicit approval ask: approve all listed changes, approve with named edits, or keep as proposal only (no writes). Wait for explicit approval. Once approved, apply only the listed roadmap, Baseline, and task updates that the Planner is authorized and able to perform. Then report the completed updates, skipped updates, and their reasons.
 
 ### Daily check-in
 

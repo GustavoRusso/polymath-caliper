@@ -2,11 +2,14 @@
 name: polymath-caliper
 description: >-
   Bootstraps and runs the Goal-driven planning workflow (init, roadmap, daily,
-  weekly, evaluate). Use when cloning or initializing personal/goal.md,
-  personal/focus-areas/, personal/baseline.md, and personal/workspaces.md;
-  configuring Notion/Todoist/Obsidian for this system; proposing a multi-week
-  roadmap; running a daily check-in; running a weekly review; or evaluating a
-  new interest against the Parking Lot decision rule.
+  weekly, evaluate). Trigger on `/polymath-caliper`, `/polymath-caliper <mode>`,
+  or plain requests to init/roadmap/daily/weekly/evaluate. Short form
+  `/polymath-caliper weekly` is enough for a full weekly review — the skill
+  owns reads, missing-input questions, return shape, and approval gates.
+  Also use when cloning or initializing personal/goal.md, personal/focus-areas/,
+  personal/baseline.md, and personal/workspaces.md; configuring
+  Notion/Todoist/Obsidian; proposing a multi-week roadmap; running a daily
+  check-in; or evaluating a new interest against the Parking Lot decision rule.
 ---
 
 # Polymath Caliper — Goal-Driven Planning
@@ -26,6 +29,7 @@ polymath-caliper/
 2. Resolve `personal/` relative to the active workspace root. Check whether `personal/goal.md`, at least one file under `personal/focus-areas/`, `personal/baseline.md`, and `personal/workspaces.md` exist. Treat a file as incomplete if it has unreplaced `<PLACEHOLDER>` tokens that block its gate (for `personal/workspaces.md`, only **init-required** fields block; deferred IDs/URLs may remain placeholders — see [workspaces.example.md](templates/workspaces.example.md)).
 3. If any required file is missing or incomplete, or the user requested **`init`**, run **`init`** before any other mode (resume at the first incomplete gate).
 4. Otherwise select the requested mode: `init` | `roadmap` | `daily` | `weekly` | `evaluate`. If the user did not name a mode, infer it from the request (bootstrap → `init`, first/multi-week plan → `roadmap`, end-of-day → `daily`, Sunday/weekly review → `weekly`, new interest/course → `evaluate`).
+5. **Short invocation is enough.** Treat `/polymath-caliper`, `/polymath-caliper <mode>`, or `Use the polymath-caliper skill in <mode> mode` as a full run of that mode. Do not ask the user to paste a longer prompt. The mode section below owns what to read, what to ask when inputs are missing, what to return, and which approvals to request.
 
 ## Operation modes
 
@@ -98,7 +102,59 @@ Return a short proposal for tomorrow grounded in `personal/baseline.md`. Do not 
 
 ### `weekly`
 
-Sunday (or recurring) weekly review. Read the locked Todoist (Task Tracker) project, relevant registered Obsidian vaults (Knowledge Base), and the locked Notion page (Roadmap & Memory). Refresh `personal/baseline.md` when distance to the Goal has changed. Return the weekly proposal from [planning-spec.md](references/planning-spec.md). Do not update external systems until approved. Details: [workflows.md](references/workflows.md) section 6.
+Sunday (or recurring) weekly review. **Invocation:** `/polymath-caliper weekly` (or equivalent short form) is a complete request — run the full procedure below without asking for a longer prompt. Load [planning-spec.md](references/planning-spec.md) (weekly proposal + approval), [todoist-workspace.md](references/todoist-workspace.md), [notion-workspace.md](references/notion-workspace.md), and [obsidian-workspace.md](references/obsidian-workspace.md) as needed. Deeper playbook context: [workflows.md](references/workflows.md) section 6.
+
+#### 1. Auto-read (always)
+
+Read in this order, then proceed — do not wait for the user to list these:
+
+1. `personal/goal.md`, `personal/focus-areas/`, `personal/baseline.md`, `personal/workspaces.md`
+2. Locked Todoist project (`project_id` / `project_name` in `personal/workspaces.md`): completed and incomplete tasks for the review window (prefer last 7 days / current week; include This Week, Today, Waiting / Follow-up, Completed Evidence)
+3. Locked Notion page (`canonical_page_url` / `page_title`): roadmap lanes, Weekly plan, Decisions, Evidence portfolio, and recent Weekly reviews
+4. Relevant registered Obsidian vaults (paths in `personal/workspaces.md`): notes touched or created in the review window that map to active Focus Areas — read-only
+
+If an integration is unavailable, say so briefly and continue with whatever is readable; ask the user only for the gaps listed in step 2.
+
+#### 2. Ask only when missing
+
+Ask the fewest questions needed. Skip any item you already resolved from tools or files.
+
+| Gap | Ask for |
+|---|---|
+| Review window unclear | Confirm start/end dates (default: last 7 days ending today) |
+| Todoist unreachable or empty | Completed outcomes, incomplete tasks, and real reasons/blockers for the week |
+| Obsidian unreachable or no notes found | Links or paste of evidence / notes from the week (optional if Todoist + Notion suffice) |
+| Incomplete tasks lack reasons | Why each incomplete item stalled (blocker, capacity, priority change, other) |
+| Open-lane decision needed | Keep current Open Focus Area, move to Reading, or return to Parking Lot |
+| Capacity / deadline changed | Updated planned execution budget, unplanned reserve, or Goal deadline |
+| Ambiguous evidence | Which artifacts count as verified progress toward The Goal this week |
+
+Do not interview for a full replanning session; if the user needs major roadmap rebuild, tell them to run `roadmap` instead after this review.
+
+#### 3. Produce the weekly proposal
+
+Return **one** proposal with these sections (same contract as [planning-spec.md](references/planning-spec.md) weekly proposal):
+
+1. **Completed outcomes and evidence** — what finished and what proof exists
+2. **Incomplete work** — each item with the real reason/blocker
+3. **Progress toward the Goal deadline** — updated Baseline draft (overall + per active Focus Area; next-task starting points)
+4. **Risks to the deadline**
+5. **Proposed lane changes** — including Open-lane keep / Reading / Parking Lot, with tradeoffs
+6. **Next week plan** — tasks with clear outcomes and 25–90 min estimates, derived from Baseline starting points; **total ≤ planned execution budget** from `personal/goal.md`
+7. **Unplanned reserve** — categories only; no scheduled tasks in the reserve
+8. **Exact external changes awaiting approval** — bullet list of Notion updates, Todoist creates/updates/completes/reschedules/moves, and whether `personal/baseline.md` will be overwritten
+
+Do **not** write Notion, Todoist, Obsidian, or `personal/baseline.md` until step 4 is approved.
+
+#### 4. Approvals to request
+
+End the proposal with an explicit approval ask. Present choices clearly, for example:
+
+- **Approve all listed changes** — write Baseline + apply every Notion/Todoist item listed
+- **Approve with edits** — user names exclusions or modifications; then apply only the revised set
+- **Proposal only** — leave external systems and Baseline unchanged
+
+On approval: apply only the approved items the Planner can access; refresh `personal/baseline.md` when included; never delete Todoist or Obsidian objects; stay inside workspace locks. Then report completed updates, skipped updates, and reasons. If access is missing, return a ready-to-apply change set instead of claiming updates ran.
 
 ### `evaluate`
 
