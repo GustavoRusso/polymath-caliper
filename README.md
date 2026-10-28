@@ -34,9 +34,15 @@ Every operation mode is self-contained — invoke it with `/polymath-caliper <mo
 
 Full playbooks: [skills/polymath-caliper/references/workflows.md](skills/polymath-caliper/references/workflows.md).
 
-## Redistributing the Skill to Other Projects
+## Skill layout (registry-ready)
 
-The [skills/polymath-caliper/](skills/polymath-caliper/) folder is completely self-contained (`SKILL.md`, `references/`, and `templates/`) and resolves `personal/` relative to the active workspace root:
+This repository keeps [skills/polymath-caliper/](skills/polymath-caliper/) as the **canonical** skill package (`SKILL.md`, `references/`, `templates/`). That layout matches public skill-repo conventions (`skills/<name>/…`) so the package can be published or installed via a registry later. The skill resolves `personal/` relative to the active workspace root.
 
-- **Global (all projects in Cursor):** Copy or symlink `skills/polymath-caliper` to `~/.cursor/skills/polymath-caliper`.
-- **Single target project:** Copy `skills/polymath-caliper` to `<project>/.cursor/skills/polymath-caliper`.
+A cross-platform **entrypoint shim** (plain markdown with an `@` reference — not an OS symlink) points agents at the canonical package without duplicating it:
+
+| Path | Role |
+|---|---|
+| [skills/polymath-caliper/](skills/polymath-caliper/) | Source of truth (edit here) |
+| [.agents/skills/polymath-caliper/SKILL.md](.agents/skills/polymath-caliper/SKILL.md) | Agent Skills shim → `@skills/polymath-caliper/SKILL.md` |
+
+When the skill `description` frontmatter changes, update the `.agents` shim to stay in sync with the canonical `SKILL.md`.

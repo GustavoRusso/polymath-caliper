@@ -34,7 +34,8 @@ Never commit anything under `personal/`. That directory is gitignored personal i
 
 ## Source of truth
 
-- [skills/polymath-caliper/](skills/polymath-caliper/) defines the operating rules, tool specs, templates, and workflow playbooks.
+- [skills/polymath-caliper/](skills/polymath-caliper/) defines the operating rules, tool specs, templates, and workflow playbooks (canonical registry-ready package).
+- [.agents/skills/polymath-caliper/SKILL.md](.agents/skills/polymath-caliper/SKILL.md) is an entrypoint shim only (`@skills/polymath-caliper/SKILL.md`); do not put process body or personal data in it.
 - `personal/goal.md` defines this instance's Goal (spine), capacity, and Focus Areas index.
 - `personal/focus-areas/*.md` define the Focus Areas that serve The Goal.
 - `personal/baseline.md` holds the Planner's evaluation of distance to The Goal and the starting point for next tasks.
@@ -47,8 +48,9 @@ Never commit anything under `personal/`. That directory is gitignored personal i
 
 This repository separates generic process specifications from personal instance data. Any agent modifying the workflow, specifications, templates, or skills in the future must enforce this boundary:
 
-- **Tracked process files (`AGENTS.md`, `skills/polymath-caliper/**`):**
+- **Tracked process files (`AGENTS.md`, `skills/polymath-caliper/**`, `.agents/skills/polymath-caliper/**`):**
   - Must remain 100% generic, domain-agnostic, reusable, and free of personal instance data.
+  - Edit skill behavior only under `skills/polymath-caliper/`; keep the `.agents` shim as a thin `@` pointer (sync `name` / `description` when the canonical frontmatter changes).
   - Never write personal outcomes, roles, locations, deadlines, specific courses or topics, local filesystem paths, Obsidian vault names/paths, Notion URLs, or Todoist IDs into any tracked file.
   - Use generic angle-bracket placeholders (for example `<TARGET_OUTCOME>`, `<VAULT_NAME>`, `<LOCAL_PATH>`) in all example templates and specifications.
   - Whenever a process change alters the structure of `personal/goal.md`, `personal/focus-areas/*.md`, `personal/baseline.md`, or `personal/workspaces.md`, update [skills/polymath-caliper/templates/goal.example.md](skills/polymath-caliper/templates/goal.example.md), [skills/polymath-caliper/templates/focus-area.example.md](skills/polymath-caliper/templates/focus-area.example.md), [skills/polymath-caliper/templates/baseline.example.md](skills/polymath-caliper/templates/baseline.example.md), and [skills/polymath-caliper/templates/workspaces.example.md](skills/polymath-caliper/templates/workspaces.example.md) using placeholders only, while keeping instance values strictly inside the gitignored `personal/` directory.
